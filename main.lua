@@ -1295,7 +1295,7 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
             end
             
             drawings.Highlight.FillColor = teamColor
-            drawings.Highlight.Transparency = espTransparency
+            drawings.Highlight.FillTransparency = espTransparency
 
             if dist > cutoffValue/2 or dist < 15 then
                 drawings.Highlight.Enabled = false
