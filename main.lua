@@ -755,6 +755,7 @@ local reloading = false
 --========================================ESP FUNCTIONS FR NOW==========================================================--
 
 function CHMS(plr)
+    if not esp_enabled then return end
 	task.spawn(function()
 		for i,v in pairs(CoreGui:GetChildren()) do
 			if v.Name == plr.Name..'_CHMS' then
