@@ -1138,6 +1138,10 @@ local function trackPlayer(player)
     end)
     table.insert(Connections, pcac)
     table.insert(Connections, pcrc)
+
+    if chms then
+        CHMS(player)
+    end
 end
 local function untrackPlayer(player)
 	trackedPlayers[player] = nil
