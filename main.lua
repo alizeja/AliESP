@@ -824,9 +824,11 @@ end
 local tgbmbd = toggleBtn.MouseButton1Down:Connect(function()
     if esp_enabled then
         esp_enabled = false
+        toggleBtn.Text = "Disabled"
         toggleBtn.TextColor3 = Color3.new(1,0,0)
     else
         esp_enabled = true
+        toggleBtn.Text = "Enabled"
         toggleBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
@@ -951,6 +953,28 @@ table.insert(Connections, hbmbd)
 table.insert(Connections, chmsbmbd)
 table.insert(Connections, rbmbd)
 
+local mbmbd = mouseBtn.MouseButton1Down:Connect(function()
+    tracer_option = "From Mouse"
+end)
+local cbmbd = charBtn.MouseButton1Down:Connect(function()
+    tracer_option = "From Character"    
+end)
+local ctbmbd = centerBtn.MouseButton1Down:Connect(function()
+    tracer_option = "From Center"
+end)
+local btmbd = bottomBtn.MouseButton1Down:Connect(function()
+    tracer_option = "From Bottom"
+end)
+local tbmbd = topBtn.MouseButton1Down:Connect(function()
+    tracer_option = "From Top"
+end)
+table.insert(Connections, mbmbd)
+table.insert(Connections, cbmbd)
+table.insert(Connections, ctbmbd)
+table.insert(Connections, btmbd)
+table.insert(Connections, tbmbd)
+
+--============================================================--
 local function getBoundingBox(char)
     local cf, size = char:GetBoundingBox()
     return cf, size
@@ -1258,15 +1282,15 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
         end
 
         if esp_tracers then
-            if tracerOption == "From Bottom" then
+            if tracer_option == "From Bottom" then
                drawings.Line.From = screenBottom
-            elseif tracerOption == "From Center" then
+            elseif tracer_option == "From Center" then
                 drawings.Line.From = screenCenter
-            elseif tracerOption == "From Top" then
+            elseif tracer_option == "From Top" then
                 drawings.Line.From = screenTop
-            elseif tracerOption == "From Mouse" then 
+            elseif tracer_option == "From Mouse" then 
                 drawings.Line.From = UserInputService:GetMouseLocation()
-            elseif tracerOption == "From Character" then
+            elseif tracer_option == "From Character" then
                 local r = getRoot(getChar(LocalPlayer))
                 if r then
                     local rp, v = Camera:WorldToViewportPoint(r.Position)
@@ -1381,6 +1405,34 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
         end
     end
 end)
+RunService:BindToRenderStep("TRACEROPTION", Enum.RenderPriority.Last.Value, function()
+    if tracer_option == "From Mouse" then
+        mouseBtn.TextColor3 = Color3.new(0,1,0)
+    else
+        mouseBtn.TextColor3 = Color3.new(1,0,0)
+    end
+    if tracer_option == "From Character" then
+        charBtn.TextColor3 = Color3.new(0,1,0)
+    else
+        charBtn.TextColor3 = Color3.new(1,0,0)
+    end
+    if tracer_option == "From Center" then
+        centerBtn.TextColor3 = Color3.new(0,1,0)
+    else
+        centerBtn.TextColor3 = Color3.new(1,0,0)
+    end
+    if tracer_option == "From Bottom" then
+        bottomBtn.TextColor3 = Color3.new(0,1,0)
+    else
+        bottomBtn.TextColor3 = Color3.new(1,0,0)
+    end
+    if tracer_option == "From Top" then
+        topBtn.TextColor3 = Color3.new(0,1,0)
+    else
+        topBtn.TextColor3 = Color3.new(1,0,0)
+    end
+    ---------------holy peak
+end)
 
 --========================================================================================================================--
 
@@ -1396,6 +1448,9 @@ screenGui.Destroying:Connect(function()
 
     RunService:UnbindFromRenderStep("ESP")
     print("Unbinded ESP")
+
+    RunService:UnbindFromRenderStep("TRACEROPTION")
+    print("Unbinded TRACEROPTION")
 
     local n = 0
     for _, drawings in pairs(espDrawings) do
