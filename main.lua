@@ -904,7 +904,7 @@ local chmsbmbd = chamsBtn.MouseButton1Down:Connect(function()
 		    local chmsplr = v
 
 		    for _, c in pairs(CoreGui:GetChildren()) do
-		    	if c.Name == chmsplr.Name..'_CHMS' then
+		    	if c.Name:find("_CHMS") then
 		    		c:Destroy()
 		    	end
 		    end
@@ -1140,6 +1140,11 @@ local function trackPlayer(player)
 end
 local function untrackPlayer(player)
 	trackedPlayers[player] = nil
+    for _, c in CoreGui:GetChildren() do
+        if c.Name == player.Name.."_CHMS" then
+            c:Destroy()
+        end
+    end
     removeESP(player)
 end
 
@@ -1480,16 +1485,11 @@ screenGui.Destroying:Connect(function()
 		local chmsplr = v
 
 		for _, c in pairs(CoreGui:GetChildren()) do
-			if c.Name == chmsplr.Name..'_CHMS' then
-				c:Destroy()
+			if c.Name:find("_CHMS") then
+                c:Destroy()
                 chn += 1
-			end
+            end
 		end
-    end
-    for _, v in ipairs(CoreGui:GetChildren()) do
-        if v.Name:find("_CHMS") then
-            v:Destroy()
-        end
     end
     print("destroyed", n, "drawings")
     print("destroyed", chn, "box handles")
