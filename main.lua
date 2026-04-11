@@ -755,7 +755,6 @@ local reloading = false
 --========================================ESP FUNCTIONS FR NOW==========================================================--
 
 function CHMS(plr)
-    if not esp_enabled then return end
 	task.spawn(function()
 		for i,v in pairs(CoreGui:GetChildren()) do
 			if v.Name == plr.Name..'_CHMS' then
@@ -897,6 +896,7 @@ local hbmbd = healthBtn.MouseButton1Down:Connect(function()
     end
 end)
 local chmsbmbd = chamsBtn.MouseButton1Down:Connect(function()
+    if not esp_enabled then return end
 	if chms then
         chms = false
         chamsBtn.TextColor3 = Color3.new(1,0,0)
