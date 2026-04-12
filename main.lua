@@ -1147,6 +1147,12 @@ local function trackPlayer(player)
             drawings.Highlight.Enabled = false
             drawings.Distance.Visible = false
             drawings.Health.Visible = false
+
+            for _, c in CoreGui:GetChildren() do
+                if c.Name == player.Name.."_CHMS" then
+                    c:Destroy()
+                end
+            end
         end
     end)
     table.insert(Connections, pcac)
