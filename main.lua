@@ -607,7 +607,7 @@ end
 
 --===============================================THE SETTINGS. YES. JUST THE SETTINGS.=======================================================================--
 
-local sbmbc = settingsBtn.MouseButton1Click:Connect(function()
+settingsBtn.MouseButton1Click:Connect(function()
     if settingsBeingInit then return end
 	if settingsEnabled then
         settingsEnabled = false
@@ -639,15 +639,14 @@ local sbmbc = settingsBtn.MouseButton1Click:Connect(function()
         settingsScroll.Visible = true
     end
 end)
-table.insert(Connections, sbmbc)
 
 --================================================SLIDER FUNCTIONS================================================--
 
-local mdhmbd = maxDistHandle.MouseButton1Down:Connect(function()
+maxDistHandle.MouseButton1Down:Connect(function()
 	if not settingsEnabled then return end
 	isDraggingMaxDist = true
 end)
-local mdtib = maxDistTrack.InputBegan:Connect(function(input)
+maxDistTrack.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and settingsEnabled then
 		isDraggingMaxDist = true
 		local mouseX = input.Position.X
@@ -657,11 +656,11 @@ local mdtib = maxDistTrack.InputBegan:Connect(function(input)
 		cutoffValue = updateCutoffVisual(cutoffValue, maxDistValue, cutoffMin)
 	end
 end)
-local cohmbd = cutoffHandle.MouseButton1Down:Connect(function()
+cutoffHandle.MouseButton1Down:Connect(function()
 	if not settingsEnabled then return end
 	isDraggingCutoff = true
 end)
-local cotib = cutoffTrack.InputBegan:Connect(function(input)
+cutoffTrack.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and settingsEnabled then
 		isDraggingCutoff = true
 		local mouseX = input.Position.X
@@ -670,11 +669,11 @@ local cotib = cutoffTrack.InputBegan:Connect(function(input)
 		cutoffValue = updateCutoffVisual(getValueFromMouse(mouseX, cutoffTrack, cutoffMin, maxDistValue), maxDistValue, cutoffMin)
 	end
 end)
-local chmshmbd = chmsHandle.MouseButton1Down:Connect(function()
+chmsHandle.MouseButton1Down:Connect(function()
 	if not settingsEnabled then return end
 	isDraggingCHMS = true
 end)
-local chmstib = chmsTrack.InputBegan:Connect(function(input)
+chmsTrack.InputBegan:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 and settingsEnabled then
 		isDraggingCHMS = true
 		local mouseX = input.Position.X
@@ -722,12 +721,6 @@ maxDistValue = updateMaxDistVisual(maxDistValue)
 cutoffValue = updateCutoffVisual(cutoffValue, maxDistValue, CUTOFF_MIN)
 espTransparency = updateCHMSVisual(espTransparency)
 
-table.insert(Connections, mdhmbd)
-table.insert(Connections, mdtib)
-table.insert(Connections, cohmbd)
-table.insert(Connections, cotib)
-table.insert(Connections, chmshmbd)
-table.insert(Connections, chmstib)
 table.insert(Connections, uisic)
 table.insert(Connections, uisie)
 
@@ -846,7 +839,7 @@ function CHMS(plr)
 	end)
 end
 
-local tgbmbd = toggleBtn.MouseButton1Down:Connect(function()
+toggleBtn.MouseButton1Down:Connect(function()
     if esp_enabled then
         esp_enabled = false
         toggleBtn.Text = "Disabled"
@@ -857,7 +850,7 @@ local tgbmbd = toggleBtn.MouseButton1Down:Connect(function()
         toggleBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local trbmbd = tracersBtn.MouseButton1Down:Connect(function()
+tracersBtn.MouseButton1Down:Connect(function()
     if esp_tracers then
         esp_tracers = false
         tracersBtn.TextColor3 = Color3.new(1,0,0)
@@ -866,7 +859,7 @@ local trbmbd = tracersBtn.MouseButton1Down:Connect(function()
         tracersBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local nbmbd = namesBtn.MouseButton1Down:Connect(function()
+namesBtn.MouseButton1Down:Connect(function()
     if esp_names then
         esp_names = false
         namesBtn.TextColor3 = Color3.new(1,0,0)
@@ -875,7 +868,7 @@ local nbmbd = namesBtn.MouseButton1Down:Connect(function()
         namesBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local bbmbd = boxesBtn.MouseButton1Down:Connect(function()
+boxesBtn.MouseButton1Down:Connect(function()
     if esp_boxes then
         esp_boxes = false
         boxesBtn.TextColor3 = Color3.new(1,0,0)
@@ -884,7 +877,7 @@ local bbmbd = boxesBtn.MouseButton1Down:Connect(function()
         boxesBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local hlbmbd = highlightsBtn.MouseButton1Down:Connect(function()
+highlightsBtn.MouseButton1Down:Connect(function()
     if esp_hl then
         esp_hl = false
         highlightsBtn.TextColor3 = Color3.new(1,0,0)
@@ -893,7 +886,7 @@ local hlbmbd = highlightsBtn.MouseButton1Down:Connect(function()
         highlightsBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local sbmbd = skeletonBtn.MouseButton1Down:Connect(function()
+skeletonBtn.MouseButton1Down:Connect(function()
     if esp_skeleton then
         esp_skeleton = false
         skeletonBtn.TextColor3 = Color3.new(1,0,0)
@@ -902,7 +895,7 @@ local sbmbd = skeletonBtn.MouseButton1Down:Connect(function()
         skeletonBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local dbmbd = distanceBtn.MouseButton1Down:Connect(function()
+distanceBtn.MouseButton1Down:Connect(function()
     if esp_distance then
         esp_distance = false
         distanceBtn.TextColor3 = Color3.new(1,0,0)
@@ -911,7 +904,7 @@ local dbmbd = distanceBtn.MouseButton1Down:Connect(function()
         distanceBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local hbmbd = healthBtn.MouseButton1Down:Connect(function()
+healthBtn.MouseButton1Down:Connect(function()
     if esp_health then
         esp_health = false
         healthBtn.TextColor3 = Color3.new(1,0,0)
@@ -920,7 +913,7 @@ local hbmbd = healthBtn.MouseButton1Down:Connect(function()
         healthBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-local chmsbmbd = chamsBtn.MouseButton1Down:Connect(function()
+chamsBtn.MouseButton1Down:Connect(function()
     if not esp_enabled then return end
 	if chms then
         chms = false
@@ -946,7 +939,7 @@ local chmsbmbd = chamsBtn.MouseButton1Down:Connect(function()
 		end
     end
 end)
-local rbmbd = reloadBtn.MouseButton1Down:Connect(function()
+reloadBtn.MouseButton1Down:Connect(function()
     if reloading then
         notif("Already reloading...", "ESP")
         return
@@ -968,43 +961,26 @@ local rbmbd = reloadBtn.MouseButton1Down:Connect(function()
     task.wait(dlay)
     reloading = false
 end)
-local dtbmbd = destroyBtn.MouseButton1Down:Connect(function()
+destroyBtn.MouseButton1Down:Connect(function()
     notif("Destroying...")
     task.wait(0.5)
     screenGui:Destroy()
 end)
-table.insert(Connections, tgbmbd)
-table.insert(Connections, trbmbd)
-table.insert(Connections, nbmbd)
-table.insert(Connections, bbmbd)
-table.insert(Connections, hlbmbd)
-table.insert(Connections, sbmbd)
-table.insert(Connections, dbmbd)
-table.insert(Connections, hbmbd)
-table.insert(Connections, chmsbmbd)
-table.insert(Connections, rbmbd)
-table.insert(Connections, dtbmbd)
-
-local mbmbd = mouseBtn.MouseButton1Down:Connect(function()
+mouseBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Mouse"
 end)
-local cbmbd = charBtn.MouseButton1Down:Connect(function()
+charBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Character"    
 end)
-local ctbmbd = centerBtn.MouseButton1Down:Connect(function()
+centerBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Center"
 end)
-local btmbd = bottomBtn.MouseButton1Down:Connect(function()
+bottomBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Bottom"
 end)
-local tbmbd = topBtn.MouseButton1Down:Connect(function()
+topBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Top"
 end)
-table.insert(Connections, mbmbd)
-table.insert(Connections, cbmbd)
-table.insert(Connections, ctbmbd)
-table.insert(Connections, btmbd)
-table.insert(Connections, tbmbd)
 
 --============================================================--
 local function getBoundingBox(char)
