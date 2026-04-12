@@ -991,7 +991,7 @@ end
 ---------------------------Create ESP for Players
 local trackedPlayers = {}
 
-local function createESP(player)
+function createESP(player)
     local drawings = {
         Line = Drawing.new("Line"),
         Name = Drawing.new("Text"),
@@ -1047,7 +1047,7 @@ local function createESP(player)
 
     espDrawings[player] = drawings
 end
-local function removeESP(player)
+function removeESP(player)
     local drawings = espDrawings[player]
     if not drawings then return end
 
