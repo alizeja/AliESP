@@ -143,6 +143,7 @@ esp.Size = UDim2.new(0, 300, 0, 300)
 esp.Position = UDim2.new(0.407, 0, 0.289, 0)
 esp.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 esp.BorderSizePixel = 0
+esp.ZIndex = 200
 esp.Parent = screenGui
 createUICorner(esp, 15)
 
@@ -166,6 +167,7 @@ scrollFrame.Position = UDim2.new(0, 0, 0, 30)
 scrollFrame.BackgroundTransparency = 1
 scrollFrame.ScrollBarThickness = 5
 scrollFrame.CanvasSize = UDim2.new(0, 0, 2, 0)
+scrollFrame.ZIndex = 100
 scrollFrame.Parent = esp
 
 local toggleBtn = createToggleButton(scrollFrame, "Toggle", "Disabled", UDim2.new(0.033, 0, 0, 5), UDim2.new(0, 280, 0, 30))
@@ -198,7 +200,7 @@ settings.Size = UDim2.new(0, 300, 0, 300)
 settings.Position = UDim2.fromScale(0, 0)
 settings.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 settings.BorderSizePixel = 0
-settings.ZIndex = esp.ZIndex - 1
+settings.ZIndex = 0
 settings.Visible = false
 settings.Parent = esp
 createUICorner(settings, 15)
@@ -224,7 +226,9 @@ settingsScroll.Size = UDim2.new(1, 0, 1, -30)
 settingsScroll.Position = UDim2.new(0, 0, 0, 30)
 settingsScroll.BackgroundTransparency = 1
 settingsScroll.ScrollBarThickness = 5
+settingsScroll.ZIndex = 0
 settingsScroll.CanvasSize = UDim2.new(0, 0, 2, 0)
+settingsScroll.Visible = false
 settingsScroll.Parent = settings
 
 local maxDistSlider = Instance.new("Frame")
@@ -234,6 +238,7 @@ maxDistSlider.Position = UDim2.new(0.033, 0, 0, 5)
 maxDistSlider.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 maxDistSlider.BorderSizePixel = 1
 maxDistSlider.BorderColor3 = Color3.fromRGB(0, 0, 0)
+maxDistSlider.ZIndex = 0
 maxDistSlider.Parent = settingsScroll
 createUICorner(maxDistSlider, 8)
 
@@ -280,6 +285,7 @@ distCutoff.Position = UDim2.new(0.033, 0, 0, 75)
 distCutoff.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 distCutoff.BorderSizePixel = 1
 distCutoff.BorderColor3 = Color3.fromRGB(0, 0, 0)
+distCutoff.ZIndex = 0
 distCutoff.Parent = settingsScroll
 createUICorner(distCutoff, 8)
 
@@ -326,6 +332,7 @@ chmsTrans.Position = UDim2.new(0.033, 0, 0, 145)
 chmsTrans.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 chmsTrans.BorderSizePixel = 1
 chmsTrans.BorderColor3 = Color3.fromRGB(0, 0, 0)
+chmsTrans.ZIndex = 0
 chmsTrans.Parent = settingsScroll
 createUICorner(chmsTrans, 8)
 
@@ -371,6 +378,7 @@ tracerSettings.Size = UDim2.new(0, 280, 0, 180)
 tracerSettings.Position = UDim2.new(0.033, 0, 0, 215)
 tracerSettings.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 tracerSettings.BorderSizePixel = 0
+tracerSettings.ZIndex = 0
 tracerSettings.Parent = settingsScroll
 createUICorner(tracerSettings, 8)
 
@@ -462,6 +470,7 @@ reloadBtn.Text = "Reload ESP"
 reloadBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 reloadBtn.TextSize = 25
 reloadBtn.Font = Enum.Font.Montserrat
+reloadBtn.ZIndex = 0
 reloadBtn.Parent = settingsScroll
 createUICorner(reloadBtn, 8)
 
@@ -475,6 +484,7 @@ destroyBtn.Text = "Destroy ESP"
 destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 destroyBtn.TextSize = 25
 destroyBtn.Font = Enum.Font.Montserrat
+destroyBtn.ZIndex = 0
 destroyBtn.Parent = settingsScroll
 createUICorner(reloadBtn, 8)
 
@@ -602,6 +612,7 @@ local sbmbc = settingsBtn.MouseButton1Click:Connect(function()
 	if settingsEnabled then
         settingsEnabled = false
         settingsBeingInit = true
+        settingsScroll.Visible = false
 
         local twinfo = TweenInfo.new(.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
         local tween = TweenService:Create(settings, twinfo, {
@@ -625,6 +636,7 @@ local sbmbc = settingsBtn.MouseButton1Click:Connect(function()
         tween.Completed:Wait()
 
         settingsBeingInit = false
+        settingsScroll.Visible = true
     end
 end)
 table.insert(Connections, sbmbc)
