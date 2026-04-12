@@ -16,7 +16,7 @@ local chms = false
 function notif(text, title, dur, btn1, btn2)
     StarterGui:SetCore("SendNotification", {
         Text = text;
-        Title = title or "Notification";
+        Title = title or "ESP";
         Duration = dur or 5;
         Button1 = btn1 or nil;
         Button2 = btn2 or nil;
@@ -455,7 +455,7 @@ createUICorner(topBtn, 8)
 local reloadBtn = Instance.new("TextButton")
 reloadBtn.Name = "Reload"
 reloadBtn.Size = UDim2.new(0, 200, 0, 50)
-reloadBtn.Position = UDim2.new(0.15, 0, 0.85, 0)
+reloadBtn.Position = UDim2.new(0.15, 0, 0.75, 0)
 reloadBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 reloadBtn.BorderSizePixel = 0
 reloadBtn.Text = "Reload ESP"
@@ -463,6 +463,19 @@ reloadBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 reloadBtn.TextSize = 25
 reloadBtn.Font = Enum.Font.Montserrat
 reloadBtn.Parent = settingsScroll
+createUICorner(reloadBtn, 8)
+
+local destroyBtn = Instance.new("TextButton")
+destroyBtn.Name = "Destroy"
+destroyBtn.Size = UDim2.new(0, 200, 0, 50)
+destroyBtn.Position = UDim2.new(0.15, 0, 0.85, 0)
+destroyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+destroyBtn.BorderSizePixel = 0
+destroyBtn.Text = "Destroy ESP"
+destroyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+destroyBtn.TextSize = 25
+destroyBtn.Font = Enum.Font.Montserrat
+destroyBtn.Parent = settingsScroll
 createUICorner(reloadBtn, 8)
 
 ------------------drag
@@ -943,6 +956,11 @@ local rbmbd = reloadBtn.MouseButton1Down:Connect(function()
     task.wait(dlay)
     reloading = false
 end)
+local dtbmbd = destroyBtn.MouseButton1Down:Connect(function()
+    notif("Destroying...")
+    task.wait(0.5)
+    screenGui:Destroy()
+end)
 table.insert(Connections, tgbmbd)
 table.insert(Connections, trbmbd)
 table.insert(Connections, nbmbd)
@@ -953,6 +971,7 @@ table.insert(Connections, dbmbd)
 table.insert(Connections, hbmbd)
 table.insert(Connections, chmsbmbd)
 table.insert(Connections, rbmbd)
+table.insert(Connections, dtbmbd)
 
 local mbmbd = mouseBtn.MouseButton1Down:Connect(function()
     tracer_option = "From Mouse"
