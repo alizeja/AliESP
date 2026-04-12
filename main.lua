@@ -1141,6 +1141,12 @@ local function trackPlayer(player)
             if drawings and drawings.Skeleton then
                 hideSkeleton(drawings)
             end
+            drawings.Line.Visible = false
+            drawings.Name.Visible = false
+            drawings.Box.Visible = false
+            drawings.Highlight.Enabled = false
+            drawings.Distance.Visible = false
+            drawings.Health.Visible = false
         end
     end)
     table.insert(Connections, pcac)
