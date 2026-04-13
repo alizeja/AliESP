@@ -570,20 +570,6 @@ universalBtn.ZIndex = 0
 universalBtn.Parent = gamesScroll
 createUICorner(universalBtn, 8)
 
-local ooBtn = Instance.new("TextButton")
-ooBtn.Name = "OperationOne"
-ooBtn.Size = UDim2.new(0, 200, 0, 50)
-ooBtn.Position = UDim2.new(0.367, -60, 0.923, -125)
-ooBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-ooBtn.BorderSizePixel = 0
-ooBtn.Text = "Operation One"
-ooBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-ooBtn.TextSize = 25
-ooBtn.Font = Enum.Font.Montserrat
-ooBtn.ZIndex = 0
-ooBtn.Parent = gamesScroll
-createUICorner(ooBtn, 8)
-
 ------------------drag
 
 local dragging = false
@@ -1059,34 +1045,6 @@ healthBtn.MouseButton1Down:Connect(function(x, y)
 end)
 chamsBtn.MouseButton1Down:Connect(function(x, y)
     if not esp_enabled then return end
-    if chms and game_option == "Operation One" then
-        chms = false
-        chamsBtn.TextColor3 = Color3.new(1,0,0)
-
-        for _, v in ipairs(Players:GetPlayers()) do
-		    local chmsplr = v
-
-		    for _, c in pairs(CoreGui:GetChildren()) do
-		    	if c.Name:find("_CHMS") then
-		    		c:Destroy()
-		    	end
-		    end
-        end
-
-        return
-    elseif game_option == "Operation One" then
-        chms = true
-        chamsBtn.TextColor3 = Color3.new(0,1,0)
-
-        getPlayersInMatch()
-        for i, v in pairs(oo_playersInMatch) do
-            if v.Name ~= LocalPlayer.Name then
-                CHMS(v)
-            end
-        end
-
-        return
-    end
 
 	if chms then
         chms = false
@@ -1159,12 +1117,6 @@ end)
 universalBtn.MouseButton1Down:Connect(function(x, y)
     game_option = "Universal"
     gameLabel.Text = gameLabelSuffix..game_option
-end)
-ooBtn.MouseButton1Down:Connect(function(x, y)
-    game_option = "Operation One"
-    gameLabel.Text = gameLabelSuffix..game_option
-
-    notif("CHAMS and Highlight can get detected for Operation One", "WARNING")
 end)
 
 --============================================================--
