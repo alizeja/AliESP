@@ -580,7 +580,7 @@ ooBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ooBtn.TextSize = 25
 ooBtn.Font = Enum.Font.Montserrat
 ooBtn.ZIndex = 0
-ooBtn.Parent = games
+ooBtn.Parent = gamesScroll
 createUICorner(ooBtn, 8)
 
 ------------------drag
@@ -1066,7 +1066,7 @@ chamsBtn.MouseButton1Down:Connect(function(x, y)
 		    	end
 		    end
         end
-        
+
         return
     elseif game_option == "Operation One" then
         chms = true
