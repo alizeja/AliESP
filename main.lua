@@ -201,7 +201,7 @@ settings.Size = UDim2.new(0, 300, 0, 300)
 settings.Position = UDim2.fromScale(0, 0)
 settings.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 settings.BorderSizePixel = 0
-settings.ZIndex = 0
+settings.ZIndex = 50
 settings.Visible = false
 settings.Parent = esp
 createUICorner(settings, 15)
