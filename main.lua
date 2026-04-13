@@ -25,7 +25,7 @@ function notif(text, title, dur, btn1, btn2)
 end
 
 local function getChar(player)
-    return player.Character or player.CharacterAdded:Wait()
+    return player.Character or player.CharacterAdded:Wait() or nil
 end
 local function getHuman(char)
     return char:FindFirstChildOfClass("Humanoid") or char:WaitForChild("Humanoid", 2)
@@ -916,11 +916,18 @@ local reloading = false
 --========================================ESP FUNCTIONS FR NOW==========================================================--
 
 local function getPlayersInMatch()
-    for i, char in ipairs(workspace:GetChildren()) do
-        if char:IsA("Model") and char:GetAttribute("Team") and Players:GetPlayerFromCharacter(char) then
-            oo_playersInMatch[i] = Players:GetPlayerFromCharacter(char)
+    local result = {}
+
+    for _, player in ipairs(Players:GetPlayers()) do
+        local char = player.Character
+
+        if char and getRoot(char) then
+            print("Active:", player.Name)
+            table.insert(result, player)
         end
     end
+
+    return result
 end
 function CHMS(plr)
 	task.spawn(function()
@@ -1126,6 +1133,7 @@ reloadBtn.MouseButton1Down:Connect(function(x, y)
         return
     end
     reloading = true
+    Camera = workspace.CurrentCamera
 
     local dlay = #Players:GetPlayers() / 50
     notif("Reloading ESP", "ESP", dlay)
@@ -1171,7 +1179,7 @@ ooBtn.MouseButton1Down:Connect(function(x, y)
     game_option = "Operation One"
     gameLabel.Text = gameLabelSuffix..game_option
 
-    notif("CHAMS can get detected for Operation One", "WARNING")
+    notif("CHAMS and Highlight can get detected for Operation One", "WARNING")
 end)
 
 --============================================================--
@@ -1408,38 +1416,36 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
     local screenCenter = Vector2.new(viewport.X / 2, viewport.Y / 2)
     local screenTop = Vector2.new(viewport.X / 2, 0)
 
-    for player, data in pairs(trackedPlayers) do
-        if player == LocalPlayer then continue end
+    local playersLooped = trackedPlayers
+    if game_option == "Operation One" then
+        local ps = {}
 
-        local char = data.Character
-        local root = data.Root
-        local rigType = data.RigType
-        local h = data.Humanoid
-        local drawings = espDrawings[player]
-        local dist: number = root and math.floor((camPos - root.Position).Magnitude * 10 + .5) / 10
+        if #oo_playersInMatch <= 0 then
+            oo_playersInMatch = getPlayersInMatch()
+        end
 
-        if game_option == "Operation One" then
-            getPlayersInMatch()
+        print(#oo_playersInMatch)
+        for pcName, pc in pairs(oo_playersInMatch) do
+            print(pcName, pc)
 
-            if #oo_playersInMatch > 0 then
-                if table.find(oo_playersInMatch, data) == nil then
-                    if drawings then
-                        drawings.Line.Visible = false
-                        drawings.Name.Visible = false
-                        drawings.Box.Visible = false
-                        drawings.Highlight.Enabled = false
-                        drawings.Distance.Visible = false
-                        drawings.Health.Visible = false
-                        hideSkeleton(drawings)
-                    end
-
-                    continue
-                end
-            else
-                task.wait(.1)
-                continue
+            if trackedPlayers[pc] then
+                ps[pc] = trackedPlayers[pc]
             end
         end
+
+        playersLooped = ps
+    end
+
+    for player, data in pairs(playersLooped) do
+        if player == LocalPlayer then continue end
+
+        local char = data.Character or getChar(data)
+        local h = (typeof(data) == "table" and data.Humanoid) or getHuman(char)
+        local root = (typeof(data) == "table" and data.Root) or getRoot(char, h)
+        local rigType = (typeof(data) == "table" and data.RigType) or getRigType(char)
+        local drawings = espDrawings[player]
+
+        local dist: number = root and math.floor((camPos - root.Position).Magnitude * 10 + .5) / 10
 
         if not drawings or not char or isDead(player) or not root or (root and dist > cutoffValue) then
             if drawings then
