@@ -725,6 +725,9 @@ settingsBtn.MouseButton1Click:Connect(function()
         settingsScroll.Visible = false
 
         if compEnabled then
+            compEnabled = false
+            gamesScroll.Visible = false
+
             comptweenoff:Play()
             comptweenoff.Completed:Wait()
 
