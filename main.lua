@@ -10,6 +10,7 @@ local Camera = workspace.CurrentCamera
 
 local Connections = {}
 local chms = false
+local realPos = UDim2.new(1, 1, 0, 0)
 
 --=========================================GENERAL FUNCS OK===========================================================--
 
@@ -205,14 +206,13 @@ settings.Visible = false
 settings.Parent = esp
 createUICorner(settings, 15)
 local startSettingsPos = settings.Position
-local realSettingsPos = UDim2.new(1, 1, 0, 0)
 
 local settingsLabel = Instance.new("TextLabel")
 settingsLabel.Name = "Label"
 settingsLabel.Size = UDim2.new(1, 0, 0, 20)
 settingsLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 settingsLabel.BorderSizePixel = 0
-settingsLabel.Text = "Settings"
+settingsLabel.Text = "SETTINGS"
 settingsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 settingsLabel.TextSize = 14
 settingsLabel.Font = Enum.Font.Montserrat
@@ -460,10 +460,25 @@ topBtn.TextWrapped = true
 topBtn.Parent = tracerSettings
 createUICorner(topBtn, 8)
 
+local compBtn = Instance.new("TextButton")
+compBtn.Name = "Compatibility"
+compBtn.Size = UDim2.new(0, 200, 0, 50)
+compBtn.Position = UDim2.new(0.15, 0, 0.7, 0)
+compBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+compBtn.BorderSizePixel = 0
+compBtn.Text = "Game Compatibility"
+compBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+compBtn.TextSize = 25
+compBtn.Font = Enum.Font.Montserrat
+compBtn.TextWrapped = true
+compBtn.ZIndex = 0
+compBtn.Parent = settingsScroll
+createUICorner(compBtn, 8)
+
 local reloadBtn = Instance.new("TextButton")
 reloadBtn.Name = "Reload"
 reloadBtn.Size = UDim2.new(0, 200, 0, 50)
-reloadBtn.Position = UDim2.new(0.15, 0, 0.75, 0)
+reloadBtn.Position = UDim2.new(0.15, 0, 0.8, 0)
 reloadBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 reloadBtn.BorderSizePixel = 0
 reloadBtn.Text = "Reload ESP"
@@ -477,7 +492,7 @@ createUICorner(reloadBtn, 8)
 local destroyBtn = Instance.new("TextButton")
 destroyBtn.Name = "Destroy"
 destroyBtn.Size = UDim2.new(0, 200, 0, 50)
-destroyBtn.Position = UDim2.new(0.15, 0, 0.85, 0)
+destroyBtn.Position = UDim2.new(0.15, 0, 0.9, 0)
 destroyBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 destroyBtn.BorderSizePixel = 0
 destroyBtn.Text = "Destroy ESP"
@@ -486,7 +501,87 @@ destroyBtn.TextSize = 25
 destroyBtn.Font = Enum.Font.Montserrat
 destroyBtn.ZIndex = 0
 destroyBtn.Parent = settingsScroll
-createUICorner(reloadBtn, 8)
+createUICorner(destroyBtn, 8)
+
+local games = Instance.new("Frame")
+games.Name = "Games"
+games.Size = UDim2.new(0, 300, 0, 300)
+games.Position = UDim2.fromScale(0, 0)
+games.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+games.BorderSizePixel = 0
+games.ZIndex = 0
+games.Visible = false
+games.Parent = settings
+createUICorner(games, 15)
+local startGamesPos = games.Position
+
+local gamesNameLabel = Instance.new("TextLabel")
+gamesNameLabel.Name = "Label"
+gamesNameLabel.Size = UDim2.new(1, 0, 0, 20)
+gamesNameLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+gamesNameLabel.BorderSizePixel = 0
+gamesNameLabel.Text = "GAME COMPATIBILITY"
+gamesNameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+gamesNameLabel.TextSize = 14
+gamesNameLabel.Font = Enum.Font.Montserrat
+gamesNameLabel.TextScaled = true
+gamesNameLabel.Parent = games
+createUICorner(gamesNameLabel, 15)
+
+local gamesScroll = Instance.new("ScrollingFrame")
+gamesScroll.Name = "ScrollingFrame"
+gamesScroll.Size = UDim2.new(1, 0, 1.033, -30)
+gamesScroll.Position = UDim2.new(0, 0, 0.067, 0)
+gamesScroll.BackgroundTransparency = 1
+gamesScroll.ScrollBarThickness = 5
+gamesScroll.ZIndex = 0
+gamesScroll.CanvasSize = UDim2.new(0, 0, 1, 0)
+gamesScroll.Visible = false
+gamesScroll.Parent = games
+
+local gameLabelSuffix = "Current Game: "
+local gameLabel = Instance.new("TextLabel")
+gameLabel.Name = "Label"
+gameLabel.Size = UDim2.new(0, 200, 0, 50)
+gameLabel.Position = UDim2.new(0.17, 0, 0.04, 0)
+gameLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+gameLabel.BorderSizePixel = 0
+gameLabel.ZIndex = 0
+gameLabel.Text = gameLabelSuffix.."Universal"
+gameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+gameLabel.TextSize = 20
+gameLabel.Font = Enum.Font.Montserrat
+gameLabel.TextWrapped = true 
+gameLabel.Parent = gamesScroll
+createUICorner(gameLabel, 10)
+
+local universalBtn = Instance.new("TextButton")
+universalBtn.Name = "Universal"
+universalBtn.Size = UDim2.new(0, 200, 0, 50)
+universalBtn.Position = UDim2.new(0.367, -60, 0.717, -125)
+universalBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+universalBtn.BorderSizePixel = 0
+universalBtn.Text = "Universal"
+universalBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+universalBtn.TextSize = 25
+universalBtn.Font = Enum.Font.Montserrat
+universalBtn.ZIndex = 0
+universalBtn.Parent = gamesScroll
+createUICorner(universalBtn, 8)
+
+local ooBtn = Instance.new("TextButton")
+ooBtn.Name = "OperationOne"
+ooBtn.Size = UDim2.new(0, 200, 0, 50)
+ooBtn.Position = UDim2.new(0.367, -60, 0.923, -125)
+ooBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+ooBtn.BorderSizePixel = 0
+ooBtn.Text = "Operation One"
+ooBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ooBtn.TextSize = 25
+ooBtn.Font = Enum.Font.Montserrat
+ooBtn.ZIndex = 0
+ooBtn.Parent = games
+createUICorner(ooBtn, 8)
 
 ------------------drag
 
@@ -529,6 +624,8 @@ end)
 
 local settingsEnabled = false
 local settingsBeingInit = false
+local compEnabled
+local compBeingInit = false
 
 local MAX_DIST_MIN = 500
 local MAX_DIST_MAX = 2500
@@ -607,6 +704,8 @@ end
 
 --===============================================THE SETTINGS. YES. JUST THE SETTINGS.=======================================================================--
 
+local twinfo = TweenInfo.new(.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+
 settingsBtn.MouseButton1Click:Connect(function()
     if settingsBeingInit then return end
 	if settingsEnabled then
@@ -614,7 +713,6 @@ settingsBtn.MouseButton1Click:Connect(function()
         settingsBeingInit = true
         settingsScroll.Visible = false
 
-        local twinfo = TweenInfo.new(.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
         local tween = TweenService:Create(settings, twinfo, {
             Position = startSettingsPos
         })
@@ -628,15 +726,44 @@ settingsBtn.MouseButton1Click:Connect(function()
         settings.Visible = true
         settingsBeingInit = true
 
-        local twinfo = TweenInfo.new(.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
         local tween = TweenService:Create(settings, twinfo, {
-            Position = realSettingsPos
+            Position = realPos
         })
         tween:Play()
         tween.Completed:Wait()
 
         settingsBeingInit = false
         settingsScroll.Visible = true
+    end
+end)
+compBtn.MouseButton1Click:Connect(function()
+    if compBeingInit then return end
+    if compEnabled then
+        compEnabled = false
+        compBeingInit = true
+        gamesScroll.Visible = false
+        
+        local tween = TweenService:Create(games, twinfo, {
+            Position = startGamesPos
+        })
+        tween:Play()
+        tween.Completed:Wait()
+
+        games.Visible = false
+        compBeingInit = false
+    else
+        compEnabled = true
+        games.Visible = true
+        compBeingInit = true
+
+        local tween = TweenService:Create(games, twinfo, {
+            Position = realPos
+        })
+        tween:Play()
+        tween.Completed:Wait()
+
+        compBeingInit = false
+        gamesScroll.Visible = true
     end
 end)
 
@@ -717,12 +844,12 @@ local uisie = UserInputService.InputEnded:Connect(function(input)
 	end
 end)
 
+table.insert(Connections, uisic)
+table.insert(Connections, uisie)
+
 maxDistValue = updateMaxDistVisual(maxDistValue)
 cutoffValue = updateCutoffVisual(cutoffValue, maxDistValue, CUTOFF_MIN)
 espTransparency = updateCHMSVisual(espTransparency)
-
-table.insert(Connections, uisic)
-table.insert(Connections, uisie)
 
 --===============================ESP FUNCTIONS. WELL TECHNICALLY VARIABLES=============================================--
 
@@ -735,6 +862,7 @@ local esp_skeleton = false
 local esp_distance = false
 local esp_health = false
 local tracer_option = "From Mouse"
+local game_option = "Universal"
 
 local espDrawings = {}
 local R15Bones = {
@@ -767,11 +895,19 @@ local R6Bones = {
     {"Torso", "Left Leg"},
     {"Torso", "Right Leg"},
 }
+local oo_playersInMatch = {}
 
 local reloading = false
 
 --========================================ESP FUNCTIONS FR NOW==========================================================--
 
+local function getPlayersInMatch()
+    for i, char in ipairs(workspace:GetChildren()) do
+        if char:IsA("Model") and char:GetAttribute("Team") and Players:GetPlayerFromCharacter(char) then
+            oo_playersInMatch[i] = Players:GetPlayerFromCharacter(char)
+        end
+    end
+end
 function CHMS(plr)
 	task.spawn(function()
 		for i,v in pairs(CoreGui:GetChildren()) do
@@ -839,7 +975,9 @@ function CHMS(plr)
 	end)
 end
 
-toggleBtn.MouseButton1Down:Connect(function()
+--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--==--
+
+toggleBtn.MouseButton1Down:Connect(function(x, y)
     if esp_enabled then
         esp_enabled = false
         toggleBtn.Text = "Disabled"
@@ -850,7 +988,7 @@ toggleBtn.MouseButton1Down:Connect(function()
         toggleBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-tracersBtn.MouseButton1Down:Connect(function()
+tracersBtn.MouseButton1Down:Connect(function(x, y)
     if esp_tracers then
         esp_tracers = false
         tracersBtn.TextColor3 = Color3.new(1,0,0)
@@ -859,7 +997,7 @@ tracersBtn.MouseButton1Down:Connect(function()
         tracersBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-namesBtn.MouseButton1Down:Connect(function()
+namesBtn.MouseButton1Down:Connect(function(x, y)
     if esp_names then
         esp_names = false
         namesBtn.TextColor3 = Color3.new(1,0,0)
@@ -868,7 +1006,7 @@ namesBtn.MouseButton1Down:Connect(function()
         namesBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-boxesBtn.MouseButton1Down:Connect(function()
+boxesBtn.MouseButton1Down:Connect(function(x, y)
     if esp_boxes then
         esp_boxes = false
         boxesBtn.TextColor3 = Color3.new(1,0,0)
@@ -877,7 +1015,7 @@ boxesBtn.MouseButton1Down:Connect(function()
         boxesBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-highlightsBtn.MouseButton1Down:Connect(function()
+highlightsBtn.MouseButton1Down:Connect(function(x, y)
     if esp_hl then
         esp_hl = false
         highlightsBtn.TextColor3 = Color3.new(1,0,0)
@@ -886,7 +1024,7 @@ highlightsBtn.MouseButton1Down:Connect(function()
         highlightsBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-skeletonBtn.MouseButton1Down:Connect(function()
+skeletonBtn.MouseButton1Down:Connect(function(x, y)
     if esp_skeleton then
         esp_skeleton = false
         skeletonBtn.TextColor3 = Color3.new(1,0,0)
@@ -895,7 +1033,7 @@ skeletonBtn.MouseButton1Down:Connect(function()
         skeletonBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-distanceBtn.MouseButton1Down:Connect(function()
+distanceBtn.MouseButton1Down:Connect(function(x, y)
     if esp_distance then
         esp_distance = false
         distanceBtn.TextColor3 = Color3.new(1,0,0)
@@ -904,7 +1042,7 @@ distanceBtn.MouseButton1Down:Connect(function()
         distanceBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-healthBtn.MouseButton1Down:Connect(function()
+healthBtn.MouseButton1Down:Connect(function(x, y)
     if esp_health then
         esp_health = false
         healthBtn.TextColor3 = Color3.new(1,0,0)
@@ -913,8 +1051,37 @@ healthBtn.MouseButton1Down:Connect(function()
         healthBtn.TextColor3 = Color3.new(0,1,0)
     end
 end)
-chamsBtn.MouseButton1Down:Connect(function()
+chamsBtn.MouseButton1Down:Connect(function(x, y)
     if not esp_enabled then return end
+    if chms and game_option == "Operation One" then
+        chms = false
+        chamsBtn.TextColor3 = Color3.new(1,0,0)
+
+        for _, v in ipairs(Players:GetPlayers()) do
+		    local chmsplr = v
+
+		    for _, c in pairs(CoreGui:GetChildren()) do
+		    	if c.Name:find("_CHMS") then
+		    		c:Destroy()
+		    	end
+		    end
+        end
+        
+        return
+    elseif game_option == "Operation One" then
+        chms = true
+        chamsBtn.TextColor3 = Color3.new(0,1,0)
+
+        getPlayersInMatch()
+        for i, v in pairs(oo_playersInMatch) do
+            if v.Name ~= LocalPlayer.Name then
+                CHMS(v)
+            end
+        end
+
+        return
+    end
+
 	if chms then
         chms = false
         chamsBtn.TextColor3 = Color3.new(1,0,0)
@@ -939,15 +1106,15 @@ chamsBtn.MouseButton1Down:Connect(function()
 		end
     end
 end)
-reloadBtn.MouseButton1Down:Connect(function()
+reloadBtn.MouseButton1Down:Connect(function(x, y)
     if reloading then
         notif("Already reloading...", "ESP")
         return
     end
     reloading = true
 
-    notif("Reloading ESP", "ESP", 7.5)
     local dlay = #Players:GetPlayers() / 50
+    notif("Reloading ESP", "ESP", dlay)
 
     for _, p in Players:GetPlayers() do
         task.spawn(function()
@@ -960,26 +1127,37 @@ reloadBtn.MouseButton1Down:Connect(function()
 
     task.wait(dlay)
     reloading = false
+    notif("Reloaded", "ESP", 3)
 end)
-destroyBtn.MouseButton1Down:Connect(function()
+destroyBtn.MouseButton1Down:Connect(function(x, y)
     notif("Destroying...")
     task.wait(0.5)
     screenGui:Destroy()
 end)
-mouseBtn.MouseButton1Down:Connect(function()
+mouseBtn.MouseButton1Down:Connect(function(x, y)
     tracer_option = "From Mouse"
 end)
-charBtn.MouseButton1Down:Connect(function()
+charBtn.MouseButton1Down:Connect(function(x, y)
     tracer_option = "From Character"    
 end)
-centerBtn.MouseButton1Down:Connect(function()
+centerBtn.MouseButton1Down:Connect(function(x, y)
     tracer_option = "From Center"
 end)
-bottomBtn.MouseButton1Down:Connect(function()
+bottomBtn.MouseButton1Down:Connect(function(x, y)
     tracer_option = "From Bottom"
 end)
-topBtn.MouseButton1Down:Connect(function()
+topBtn.MouseButton1Down:Connect(function(x, y)
     tracer_option = "From Top"
+end)
+universalBtn.MouseButton1Down:Connect(function(x, y)
+    game_option = "Universal"
+    gameLabel.Text = gameLabelSuffix..game_option
+end)
+ooBtn.MouseButton1Down:Connect(function(x, y)
+    game_option = "Operation One"
+    gameLabel.Text = gameLabelSuffix..game_option
+
+    notif("Only CHAMS properly work for Operation One", "Operation One ESP")
 end)
 
 --============================================================--
