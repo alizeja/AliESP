@@ -712,10 +712,9 @@ local comptweenoff = TweenService:Create(games, twinfo, {
     Position = startGamesPos
 })
 local function tweenon(obj)
-    local tween = TweenService:Create(obj, twinfo, {
+    return TweenService:Create(obj, twinfo, {
         Position = realPos
     })
-    return tween
 end
 
 settingsBtn.MouseButton1Click:Connect(function()
@@ -741,6 +740,7 @@ settingsBtn.MouseButton1Click:Connect(function()
         settingsBeingInit = true
 
         local tween = tweenon(settings)
+        tween:Play()
         tween.Completed:Wait()
 
         settingsBeingInit = false
@@ -765,6 +765,7 @@ compBtn.MouseButton1Click:Connect(function()
         compBeingInit = true
 
         local tween = tweenon(games)
+        tween:Play()
         tween.Completed:Wait()
 
         compBeingInit = false
