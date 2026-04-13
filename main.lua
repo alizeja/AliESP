@@ -705,6 +705,15 @@ end
 --===============================================THE SETTINGS. YES. JUST THE SETTINGS.=======================================================================--
 
 local twinfo = TweenInfo.new(.2, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut)
+local settingstweenoff = TweenService:Create(settings, twinfo, {
+    Position = startSettingsPos
+})
+local comptweenoff = TweenService:Create(games, twinfo, {
+    Position = startGamesPos
+})
+local tweenon = TweenService:Create(settings, twinfo, {
+    Position = realPos
+})
 
 settingsBtn.MouseButton1Click:Connect(function()
     if settingsBeingInit then return end
@@ -713,11 +722,13 @@ settingsBtn.MouseButton1Click:Connect(function()
         settingsBeingInit = true
         settingsScroll.Visible = false
 
-        local tween = TweenService:Create(settings, twinfo, {
-            Position = startSettingsPos
-        })
-        tween:Play()
-        tween.Completed:Wait()
+        if compEnabled then
+            comptweenoff:Play()
+            comptweenoff.Completed:Wait()
+        end
+
+        settingstweenoff:Play()
+        settingstweenoff.Completed:Wait()
 
         settings.Visible = false
         settingsBeingInit = false
@@ -726,11 +737,8 @@ settingsBtn.MouseButton1Click:Connect(function()
         settings.Visible = true
         settingsBeingInit = true
 
-        local tween = TweenService:Create(settings, twinfo, {
-            Position = realPos
-        })
-        tween:Play()
-        tween.Completed:Wait()
+        tweenon:Play()
+        tweenon.Completed:Wait()
 
         settingsBeingInit = false
         settingsScroll.Visible = true
@@ -743,11 +751,8 @@ compBtn.MouseButton1Click:Connect(function()
         compBeingInit = true
         gamesScroll.Visible = false
         
-        local tween = TweenService:Create(games, twinfo, {
-            Position = startGamesPos
-        })
-        tween:Play()
-        tween.Completed:Wait()
+        comptweenoff:Play()
+        comptweenoff.Completed:Wait()
 
         games.Visible = false
         compBeingInit = false
@@ -756,11 +761,8 @@ compBtn.MouseButton1Click:Connect(function()
         games.Visible = true
         compBeingInit = true
 
-        local tween = TweenService:Create(games, twinfo, {
-            Position = realPos
-        })
-        tween:Play()
-        tween.Completed:Wait()
+        tweenon:Play()
+        tweenon.Completed:Wait()
 
         compBeingInit = false
         gamesScroll.Visible = true
