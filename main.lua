@@ -1171,7 +1171,7 @@ ooBtn.MouseButton1Down:Connect(function(x, y)
     game_option = "Operation One"
     gameLabel.Text = gameLabelSuffix..game_option
 
-    notif("Only CHAMS properly work for Operation One", "Operation One ESP")
+    notif("CHAMS can get detected for Operation One", "WARNING")
 end)
 
 --============================================================--
@@ -1417,6 +1417,28 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
         local h = data.Humanoid
         local drawings = espDrawings[player]
         local dist: number = root and math.floor((camPos - root.Position).Magnitude * 10 + .5) / 10
+
+        if game_option == "Operation One" then
+            getPlayersInMatch()
+
+            if #oo_playersInMatch > 0 then
+                if table.find(oo_playersInMatch, data) == nil then
+                    if drawings then
+                        drawings.Line.Visible = false
+                        drawings.Name.Visible = false
+                        drawings.Box.Visible = false
+                        drawings.Highlight.Enabled = false
+                        drawings.Distance.Visible = false
+                        drawings.Health.Visible = false
+                        hideSkeleton(drawings)
+                    end
+
+                    continue
+                end
+            else
+                continue
+            end
+        end
 
         if not drawings or not char or isDead(player) or not root or (root and dist > cutoffValue) then
             if drawings then
