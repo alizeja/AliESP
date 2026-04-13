@@ -727,6 +727,8 @@ settingsBtn.MouseButton1Click:Connect(function()
         if compEnabled then
             comptweenoff:Play()
             comptweenoff.Completed:Wait()
+
+            games.Visible = false
         end
 
         settingstweenoff:Play()
