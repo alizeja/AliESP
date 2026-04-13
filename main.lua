@@ -909,26 +909,11 @@ local R6Bones = {
     {"Torso", "Left Leg"},
     {"Torso", "Right Leg"},
 }
-local oo_playersInMatch = {}
 
 local reloading = false
 
 --========================================ESP FUNCTIONS FR NOW==========================================================--
 
-local function getPlayersInMatch()
-    local result = {}
-
-    for _, player in ipairs(Players:GetPlayers()) do
-        local char = player.Character
-
-        if char and getRoot(char) then
-            print("Active:", player.Name)
-            table.insert(result, player)
-        end
-    end
-
-    return result
-end
 function CHMS(plr)
 	task.spawn(function()
 		for i,v in pairs(CoreGui:GetChildren()) do
@@ -1416,33 +1401,13 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
     local screenCenter = Vector2.new(viewport.X / 2, viewport.Y / 2)
     local screenTop = Vector2.new(viewport.X / 2, 0)
 
-    local playersLooped = trackedPlayers
-    if game_option == "Operation One" then
-        local ps = {}
-
-        if #oo_playersInMatch <= 0 then
-            oo_playersInMatch = getPlayersInMatch()
-        end
-
-        print(#oo_playersInMatch)
-        for pcName, pc in pairs(oo_playersInMatch) do
-            print(pcName, pc)
-
-            if trackedPlayers[pc] then
-                ps[pc] = trackedPlayers[pc]
-            end
-        end
-
-        playersLooped = ps
-    end
-
-    for player, data in pairs(playersLooped) do
+    for player, data in pairs(trackedPlayers) do
         if player == LocalPlayer then continue end
 
-        local char = data.Character or getChar(data)
-        local h = (typeof(data) == "table" and data.Humanoid) or getHuman(char)
-        local root = (typeof(data) == "table" and data.Root) or getRoot(char, h)
-        local rigType = (typeof(data) == "table" and data.RigType) or getRigType(char)
+        local char = data.Character
+        local h = data.Humanoid
+        local root = data.Root
+        local rigType = data.RigType
         local drawings = espDrawings[player]
 
         local dist: number = root and math.floor((camPos - root.Position).Magnitude * 10 + .5) / 10
