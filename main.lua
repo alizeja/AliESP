@@ -1436,6 +1436,7 @@ RunService:BindToRenderStep("ESP", Enum.RenderPriority.Camera.Value + 2, functio
                     continue
                 end
             else
+                task.wait(.1)
                 continue
             end
         end
