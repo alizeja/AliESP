@@ -158,6 +158,7 @@ espLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 espLabel.TextSize = 14
 espLabel.Font = Enum.Font.Montserrat
 espLabel.TextScaled = true
+espLabel.ZIndex = 200
 espLabel.Parent = esp
 createUICorner(espLabel, 15)
 
@@ -509,7 +510,7 @@ games.Size = UDim2.new(0, 300, 0, 300)
 games.Position = UDim2.fromScale(0, 0)
 games.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 games.BorderSizePixel = 0
-games.ZIndex = 0
+games.ZIndex = -1
 games.Visible = false
 games.Parent = settings
 createUICorner(games, 15)
@@ -722,7 +723,6 @@ settingsBtn.MouseButton1Click:Connect(function()
 	if settingsEnabled then
         settingsEnabled = false
         settingsBeingInit = true
-        settingsScroll.Visible = false
 
         if compEnabled then
             compEnabled = false
@@ -732,7 +732,10 @@ settingsBtn.MouseButton1Click:Connect(function()
             comptweenoff.Completed:Wait()
 
             games.Visible = false
+            task.wait()
         end
+
+        settingsScroll.Visible = false
 
         settingstweenoff:Play()
         settingstweenoff.Completed:Wait()
